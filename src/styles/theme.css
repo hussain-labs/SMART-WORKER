@@ -1,0 +1,17 @@
+:root {
+  --bg-main: #F8F4EC;
+  --color-primary: #17382B;
+  --color-accent: #D96B27;
+  --color-card: #FFFFFF;
+  --color-border: #EAE5D9;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--color-primary);
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
