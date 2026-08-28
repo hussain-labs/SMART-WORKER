@@ -7,10 +7,21 @@ import {
   X 
 } from 'lucide-react';
 
-const Navbar = ({ openAuthModal }) => {
+const Navbar = ({ 
+  user, 
+  openAuthModal, 
+  handleLogout, 
+  openEditModal, 
+  openSettingsModal, 
+  showDashboard, 
+  onNavigateToDashboard, 
+  activeDashboardView, 
+  setActiveDashboardView 
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [findWorkersOpen, setFindWorkersOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   return (
     <header className="w-full bg-[#17382B] text-white sticky top-0 z-50 shadow-md">
@@ -93,15 +104,54 @@ const Navbar = ({ openAuthModal }) => {
               <ChevronDown className="w-3 h-3 opacity-60 ml-0.5" />
             </button>
 
-            {/* Log In Button */}
-            <button onClick={openAuthModal} className="text-xs font-medium text-white px-4 py-2 rounded-lg border border-[#305345] hover:bg-[#1f4535] transition">
-              Log In
-            </button>
-
-            {/* Sign Up CTA */}
-            <button onClick={() => openAuthModal && openAuthModal('client')} className="text-xs font-semibold text-white bg-[#D96B27] hover:bg-[#bf5817] px-5 py-2.5 rounded-lg shadow-sm transition">
-              Sign Up
-            </button>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <div className="relative">
+                  <button 
+                    onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                    className="flex items-center gap-2 text-white bg-[#122c22] border border-[#2A4D46] px-3 py-1.5 rounded-full hover:bg-[#1B3B36] transition"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-[#D96B27] flex items-center justify-center text-xs font-bold">
+                      {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <span className="text-xs font-medium">{user.name || 'User'}</span>
+                    <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                  </button>
+                  
+                  {profileMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-[#1B3B36] border border-[#2A4D46] rounded-xl shadow-xl py-2 z-50 text-white">
+                      <div className="px-4 py-2 border-b border-[#2A4D46] mb-1">
+                        <p className="text-sm font-semibold truncate">{user.name || 'User'}</p>
+                        <p className="text-[10px] text-[#A3B8B0] truncate">{user.email || ''}</p>
+                      </div>
+                      <button onClick={onNavigateToDashboard} className="w-full text-left block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Dashboard</button>
+                      <button onClick={openSettingsModal} className="w-full text-left block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Settings</button>
+                      <button 
+                        onClick={() => {
+                          handleLogout();
+                          setProfileMenuOpen(false);
+                        }}
+                        className="w-full text-left block px-4 py-2 hover:bg-[#122c22] hover:text-red-400 text-xs text-red-300"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Log In Button */}
+                <button onClick={openAuthModal} className="text-xs font-medium text-white px-4 py-2 rounded-lg border border-[#305345] hover:bg-[#1f4535] transition">
+                  Log In
+                </button>
+    
+                {/* Sign Up CTA */}
+                <button onClick={() => openAuthModal && openAuthModal('client')} className="text-xs font-semibold text-white bg-[#D96B27] hover:bg-[#bf5817] px-5 py-2.5 rounded-lg shadow-sm transition">
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -127,14 +177,37 @@ const Navbar = ({ openAuthModal }) => {
           <a href="#" className="block py-2 text-sm text-[#D1DDD7]">For Businesses</a>
           <a href="#" className="block py-2 text-sm text-[#D1DDD7]">Become a Worker</a>
           <a href="#" className="block py-2 text-sm text-[#D1DDD7]">About Us</a>
-          <div className="pt-4 border-t border-[#234537] flex flex-col gap-2.5">
-            <button onClick={openAuthModal} className="w-full py-2 text-center text-xs font-medium text-white border border-[#305345] rounded-lg">
-              Log In
-            </button>
-            <button onClick={() => openAuthModal && openAuthModal('client')} className="w-full py-2 text-center text-xs font-semibold text-white bg-[#D96B27] rounded-lg">
-              Sign Up
-            </button>
-          </div>
+          {user ? (
+            <div className="pt-4 border-t border-[#234537] flex flex-col gap-2.5">
+              <div className="flex items-center gap-3 mb-2 px-2">
+                <div className="w-8 h-8 rounded-full bg-[#D96B27] flex items-center justify-center text-sm font-bold text-white">
+                  {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                </div>
+                <div className="overflow-hidden">
+                  <p className="text-sm font-semibold text-white truncate">{user.name || 'User'}</p>
+                  <p className="text-xs text-[#A3B8B0] truncate">{user.email || ''}</p>
+                </div>
+              </div>
+              <button onClick={() => { onNavigateToDashboard(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-[#D1DDD7] hover:text-white">
+                Dashboard
+              </button>
+              <button onClick={() => { openSettingsModal(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-[#D1DDD7] hover:text-white">
+                Settings
+              </button>
+              <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-red-400 hover:text-red-300">
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="pt-4 border-t border-[#234537] flex flex-col gap-2.5">
+              <button onClick={openAuthModal} className="w-full py-2 text-center text-xs font-medium text-white border border-[#305345] rounded-lg">
+                Log In
+              </button>
+              <button onClick={() => openAuthModal && openAuthModal('client')} className="w-full py-2 text-center text-xs font-semibold text-white bg-[#D96B27] rounded-lg">
+                Sign Up
+              </button>
+            </div>
+          )}
         </div>
       )}
     </header>
