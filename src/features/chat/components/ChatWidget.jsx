@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { MessageSquare, X, Send, Search, Minus, ChevronDown } from 'lucide-react';
-import { NotificationContext } from '../context/NotificationContext';
+import { NotificationContext } from '../../../context/NotificationContext';
 
 const ChatWidget = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);

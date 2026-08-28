@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star, ChevronRight } from 'lucide-react';
-import { useServices } from '../hooks/useServices';
+import { useServices } from '../../../hooks/useServices';
 
 const TrendingServices = ({ onSelectService }) => {
   const { services } = useServices();

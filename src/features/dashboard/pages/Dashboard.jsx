@@ -1,21 +1,21 @@
 import React, { useRef, useContext, useState, useEffect } from 'react';
 import { Briefcase, FileText, Settings, Star, TrendingUp, Users, MapPin, CheckCircle, ExternalLink, MessageSquare, Camera, Clock, XCircle, DollarSign, Search, PlusCircle, Send, ArrowLeft, Image as ImageIcon, LayoutGrid } from 'lucide-react';
-import WorkerCardSkeleton from './WorkerCardSkeleton';
-import EmptyState from './EmptyState';
-import SubmitBidModal from './SubmitBidModal';
-import ProposalsReviewModal from './ProposalsReviewModal';
-import PostJobPage from './PostJobPage';
-import WorkerProfilePage from './WorkerProfilePage';
-import SendOfferPage from './SendOfferPage';
-import EditProfilePage from './EditProfilePage';
-import ManagePortfolioPage from './ManagePortfolioPage';
-import CreateServicePage from './CreateServicePage';
-import { useOffers } from '../hooks/useOffers';
-import { useJobs } from '../hooks/useJobs';
-import { useServices } from '../hooks/useServices';
-import { AuthContext } from '../context/AuthContext';
-import { NotificationContext } from '../context/NotificationContext';
-import api from '../services/api';
+import WorkerCardSkeleton from '../../../components/shared/WorkerCardSkeleton';
+import EmptyState from '../../../components/shared/EmptyState';
+import SubmitBidModal from '../../jobs/components/SubmitBidModal';
+import ProposalsReviewModal from '../../jobs/components/ProposalsReviewModal';
+import PostJobPage from '../../jobs/pages/PostJobPage';
+import WorkerProfilePage from '../../profile/pages/WorkerProfilePage';
+import SendOfferPage from '../../jobs/pages/SendOfferPage';
+import EditProfilePage from '../../profile/pages/EditProfilePage';
+import ManagePortfolioPage from '../../profile/pages/ManagePortfolioPage';
+import CreateServicePage from '../../services/pages/CreateServicePage';
+import { useOffers } from '../../../hooks/useOffers';
+import { useJobs } from '../../../hooks/useJobs';
+import { useServices } from '../../../hooks/useServices';
+import { AuthContext } from '../../../context/AuthContext';
+import { NotificationContext } from '../../../context/NotificationContext';
+import api from '../../../api/api';
 
 const WorkerDashboard = ({ user, isEditModalOpen, closeEditModal, openEditModal, onBackToHome }) => {
   const { updateUser } = useContext(AuthContext);

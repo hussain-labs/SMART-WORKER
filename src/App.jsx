@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import CategoryCards from './components/CategoryCards';
-import Footer from './components/Footer';
-import AuthPage from './components/AuthPage';
-import Dashboard from './components/Dashboard';
-import SettingsModal from './components/SettingsModal';
-import ChatWidget from './components/ChatWidget';
-import TrendingServices from './components/TrendingServices';
-import ServiceDetailPage from './components/ServiceDetailPage';
+import Navbar from './components/shared/Navbar';
+import Hero from './components/shared/Hero';
+import CategoryCards from './features/services/components/CategoryCards';
+import Footer from './components/shared/Footer';
+import AuthPage from './features/auth/pages/AuthPage';
+import Dashboard from './features/dashboard/pages/Dashboard';
+import SettingsModal from './features/dashboard/components/SettingsModal';
+import ChatWidget from './features/chat/components/ChatWidget';
+import TrendingServices from './features/services/components/TrendingServices';
+import ServiceDetailPage from './features/services/pages/ServiceDetailPage';
 import { AuthContext } from './context/AuthContext';
 import { NotificationProvider } from './context/NotificationContext';
 

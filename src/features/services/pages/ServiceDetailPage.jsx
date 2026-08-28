@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Star, Clock, CheckCircle2, ChevronRight, Info } from 'lucide-react';
-import { useOffers } from '../hooks/useOffers';
+import { useOffers } from '../../../hooks/useOffers';
 
 const ServiceDetailPage = ({ service, onBack, user, openAuthModal }) => {
   const [activeTab, setActiveTab] = useState('basic');
