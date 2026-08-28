@@ -15,13 +15,7 @@ const WorkerProfilePage = ({ worker, onBack, onHireWorker }) => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Top Navigation */}
-      <div className="flex items-center justify-between mb-4">
-        <button 
-          onClick={onBack}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium text-theme-primary bg-theme-card/70 hover:bg-theme-card border border-theme-border hover:border-theme-accent hover:text-theme-accent shadow-sm transition-all duration-200 cursor-pointer"
-        >
-          <ArrowLeft size={16} /> Back to Talent Feed
-        </button>
+      <div className="flex items-center justify-end mb-4">
         
         <div className="flex gap-3">
           <button 

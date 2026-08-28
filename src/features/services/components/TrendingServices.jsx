@@ -9,8 +9,8 @@ const TrendingServices = ({ onSelectService }) => {
   const trendingServices = services.slice(0, 4);
 
   return (
-    <section className="py-20 bg-theme-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-white font-sans">
+      <div className="max-w-[1600px] mx-auto px-6 xl:px-12">
         
         <div className="flex justify-between items-end mb-12">
           <div>

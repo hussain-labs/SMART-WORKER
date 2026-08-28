@@ -109,12 +109,6 @@ const WorkerDashboard = ({ user, isEditModalOpen, closeEditModal, openEditModal,
 
       {currentView === 'dashboard' && (
         <>
-          <button 
-            onClick={onBackToHome}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium text-theme-primary bg-theme-card/70 hover:bg-theme-card border border-theme-border hover:border-theme-accent hover:text-theme-accent shadow-sm transition-all duration-200 cursor-pointer mb-2"
-          >
-            <ArrowLeft size={16} /> Back to Home
-          </button>
       {/* Navigation Tabs */}
       <div className="flex gap-4 border-b border-theme-border pb-2 overflow-x-auto custom-scrollbar">
         <button onClick={() => setActiveTab('overview')} className={`font-semibold pb-2 border-b-2 transition-colors whitespace-nowrap ${activeTab === 'overview' ? 'border-coral text-coral' : 'border-transparent text-theme-muted hover:text-espresso'}`}>Overview</button>
@@ -563,13 +557,6 @@ const ClientDashboard = ({ user, isEditModalOpen, closeEditModal, openEditModal,
 
   return (
     <div className="space-y-6" id="client-profile">
-      <button 
-        onClick={onBackToHome}
-        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium text-theme-primary bg-theme-card/70 hover:bg-theme-card border border-theme-border hover:border-theme-accent hover:text-theme-accent shadow-sm transition-all duration-200 cursor-pointer mb-2"
-      >
-        <ArrowLeft size={16} /> Back to Home
-      </button>
-
       {/* Client Profile Header with Post Job Action */}
       <div className="bg-card rounded-2xl shadow-sm border border-theme-border overflow-hidden">
         <div className="p-6 sm:p-8 border-b border-theme-border bg-theme-bg/30 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
@@ -845,7 +832,7 @@ const Dashboard = ({ user, isEditModalOpen, closeEditModal, openEditModal, onBac
   const displayMode = activeDashboardView || user.role;
   return (
     <div className="min-h-screen bg-theme-bg py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto px-6 xl:px-12">
         {displayMode === 'worker' && <WorkerDashboard user={user} isEditModalOpen={isEditModalOpen} closeEditModal={closeEditModal} openEditModal={openEditModal} onBackToHome={onBackToHome} />}
         {displayMode === 'client' && <ClientDashboard user={user} isEditModalOpen={isEditModalOpen} closeEditModal={closeEditModal} openEditModal={openEditModal} onBackToHome={onBackToHome} />}
         {displayMode === 'admin' && <AdminDashboard />}

@@ -3,6 +3,7 @@ import Navbar from './components/shared/Navbar';
 import Hero from './components/shared/Hero';
 import CategoryCards from './features/services/components/CategoryCards';
 import Footer from './components/shared/Footer';
+import HowItWorks from './components/shared/HowItWorks';
 import AuthPage from './features/auth/pages/AuthPage';
 import Dashboard from './features/dashboard/pages/Dashboard';
 import SettingsModal from './features/dashboard/components/SettingsModal';
@@ -77,6 +78,7 @@ function App() {
             <>
               <Hero openAuthModal={navigateToAuth} />
               <CategoryCards />
+              <HowItWorks />
               <TrendingServices onSelectService={setSelectedService} />
             </>
           )}

@@ -3,8 +3,8 @@ import { Briefcase, Globe, Mail, Link } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-espresso text-canvas py-12 border-t border-theme-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#122c22] text-white pt-20 pb-10 border-t border-white/10 font-sans">
+      <div className="max-w-[1600px] mx-auto px-6 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           <div className="col-span-1 md:col-span-2">

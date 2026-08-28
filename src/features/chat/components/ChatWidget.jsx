@@ -61,7 +61,7 @@ const ChatWidget = ({ user }) => {
     const handleOpenChat = (e) => {
       const worker = e.detail;
       setIsOpen(true);
-      
+
       const existingChat = chats.find(c => c.participantId === (worker._id || worker.email || worker.name));
       if (existingChat) {
         setActiveChatId(existingChat.id);
@@ -106,9 +106,9 @@ const ChatWidget = ({ user }) => {
       timestamp: new Date().toISOString()
     };
 
-    setChats(prev => prev.map(c => 
-      c.id === activeChatId 
-        ? { ...c, messages: [...c.messages, newMessage] } 
+    setChats(prev => prev.map(c =>
+      c.id === activeChatId
+        ? { ...c, messages: [...c.messages, newMessage] }
         : c
     ));
     setMessageInput('');
@@ -141,7 +141,7 @@ const ChatWidget = ({ user }) => {
   return (
     <div ref={widgetRef}>
       {/* Floating Button */}
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-6 right-6 w-14 h-14 bg-theme-primary text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-[60] ${isOpen ? 'scale-90 hover:bg-[#e67363]' : 'hover:scale-105'}`}
       >
@@ -152,10 +152,10 @@ const ChatWidget = ({ user }) => {
       {/* Chat Interface */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-[90vw] md:w-[800px] h-[600px] max-h-[75vh] bg-theme-card rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden z-50 animate-in slide-in-from-bottom-8 fade-in duration-300 border border-theme-border">
-          
+
           {/* Left Sidebar (Conversations) */}
           <div className={`w-full md:w-1/3 bg-theme-bg/50 flex-col border-r border-theme-border ${activeChatId ? 'hidden md:flex' : 'flex'} h-full`}>
-            
+
             <div className="p-4 border-b border-theme-border bg-theme-card">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-lg font-bold text-theme-primary">Messages</h3>
@@ -170,8 +170,8 @@ const ChatWidget = ({ user }) => {
               </div>
               <div className="relative">
                 <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Search chats..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -187,8 +187,8 @@ const ChatWidget = ({ user }) => {
                 filteredChats.map(chat => {
                   const lastMessage = chat.messages[chat.messages.length - 1];
                   return (
-                    <div 
-                      key={chat.id} 
+                    <div
+                      key={chat.id}
                       onClick={() => setActiveChatId(chat.id)}
                       className={`p-4 border-b border-theme-border cursor-pointer hover:bg-theme-card transition-colors flex items-center gap-3 ${activeChatId === chat.id ? 'bg-theme-card border-l-4 border-l-theme-accent' : 'border-l-4 border-l-transparent'}`}
                     >
@@ -220,13 +220,13 @@ const ChatWidget = ({ user }) => {
 
           {/* Right Main Area (Active Chat) */}
           <div className={`w-full md:w-2/3 flex-col bg-theme-bg/20 ${!activeChatId ? 'hidden md:flex' : 'flex'} h-full relative`}>
-            
+
             {activeChat ? (
               <>
                 {/* Chat Header */}
                 <div className="p-4 bg-theme-card border-b border-theme-border flex justify-between items-center shrink-0 shadow-sm z-10">
                   <div className="flex items-center gap-3">
-                    <button 
+                    <button
                       onClick={() => setActiveChatId(null)}
                       className="md:hidden text-gray-500 hover:text-theme-primary"
                     >
@@ -241,7 +241,7 @@ const ChatWidget = ({ user }) => {
                         )}
                       </div>
                       {activeChat.participant.isAvailable && (
-                         <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
+                        <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
                       )}
                     </div>
                     <div>
@@ -249,7 +249,7 @@ const ChatWidget = ({ user }) => {
                       <span className="text-xs text-theme-accent font-semibold">{activeChat.participant.role}</span>
                     </div>
                   </div>
-                  
+
                   <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-theme-primary bg-gray-100 hover:bg-theme-border/30 p-2 rounded-full transition-colors">
                     <X size={18} />
                   </button>
@@ -276,14 +276,14 @@ const ChatWidget = ({ user }) => {
                 {/* Input Area */}
                 <div className="p-4 bg-theme-card border-t border-theme-border shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                   <form onSubmit={handleSendMessage} className="flex gap-2">
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={messageInput}
                       onChange={(e) => setMessageInput(e.target.value)}
                       placeholder="Type your message..."
                       className="flex-1 bg-theme-bg border border-theme-border rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-theme-accent text-theme-primary"
                     />
-                    <button 
+                    <button
                       type="submit"
                       disabled={!messageInput.trim()}
                       className="w-10 h-10 rounded-full bg-theme-primary text-white flex items-center justify-center shrink-0 disabled:opacity-50 hover:opacity-90 transition-opacity"
@@ -307,7 +307,7 @@ const ChatWidget = ({ user }) => {
                 </div>
               </div>
             )}
-            
+
           </div>
         </div>
       )}

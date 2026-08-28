@@ -1,90 +1,105 @@
-import React, { useState } from 'react';
-import { 
-  Wrench, 
-  MapPin, 
-  ChevronDown, 
-  Menu, 
-  X 
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Wrench,
+  MapPin,
+  ChevronDown,
+  Menu,
+  X
 } from 'lucide-react';
 
-const Navbar = ({ 
-  user, 
-  openAuthModal, 
-  handleLogout, 
-  openEditModal, 
-  openSettingsModal, 
-  showDashboard, 
-  onNavigateToDashboard, 
-  activeDashboardView, 
-  setActiveDashboardView 
+const Navbar = ({
+  user,
+  openAuthModal,
+  handleLogout,
+  openEditModal,
+  openSettingsModal,
+  showDashboard,
+  onNavigateToDashboard,
+  activeDashboardView,
+  setActiveDashboardView
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [findWorkersOpen, setFindWorkersOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setFindWorkersOpen(false);
+        setServicesOpen(false);
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <header className="w-full bg-[#17382B] text-white sticky top-0 z-50 shadow-md">
-      <div className="w-full px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          
+    <header ref={navRef} className="w-full bg-[#122c22] text-white sticky top-0 z-50 shadow-sm border-b border-white/5 font-sans">
+      <div className="w-full max-w-[1600px] mx-auto px-6 xl:px-12">
+        <div className="flex items-center justify-between h-[88px]">
+
           {/* 1. Logo Section */}
           <div className="flex items-center gap-3 shrink-0 cursor-pointer">
-            <div className="w-9 h-9 rounded-lg border border-[#D96B27]/40 bg-[#122c22] flex items-center justify-center">
-              <Wrench className="w-5 h-5 text-[#D96B27]" />
+            <div className="w-[42px] h-[42px] rounded-xl border-[1.5px] border-[#d96b27]/40 flex items-center justify-center">
+              <Wrench className="w-5 h-5 text-[#d96b27]" strokeWidth={2.5} />
             </div>
-            <div className="flex flex-col select-none">
-              <div className="text-xl font-bold tracking-tight leading-none text-white">
-                Smart<span className="text-[#D96B27]">Worker</span>
+            <div className="flex flex-col select-none mt-0.5">
+              <div className="text-[22px] font-bold tracking-tight leading-none text-white">
+                Smart<span className="text-[#d96b27]">Worker</span>
               </div>
-              <span className="text-[8px] text-[#A3B8B0] tracking-widest uppercase font-semibold mt-1">
+              <span className="text-[8px] text-white/70 tracking-[0.25em] uppercase font-bold mt-1">
                 FIND. HIRE. RELAX.
               </span>
             </div>
           </div>
 
           {/* 2. Center Navigation Links */}
-          <nav className="hidden xl:flex items-center space-x-8 text-[13.5px] font-medium text-[#D1DDD7]">
-            <a 
-              href="#" 
-              className="text-white font-semibold relative py-1 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-white after:rounded-full"
+          <nav className="hidden xl:flex items-center space-x-8 text-[14px] font-medium text-white/80">
+            <a
+              href="#"
+              className="text-white font-bold relative py-1 after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[2.5px] after:bg-white after:rounded-full"
             >
               Home
             </a>
 
             {/* Find Workers Dropdown */}
             <div className="relative">
-              <button 
+              <button
                 onClick={() => { setFindWorkersOpen(!findWorkersOpen); setServicesOpen(false); }}
                 className="flex items-center gap-1.5 hover:text-white transition py-1"
               >
                 <span>Find Workers</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                <ChevronDown className="w-4 h-4 opacity-70" />
               </button>
               {findWorkersOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-[#1B3B36] border border-[#2A4D46] rounded-xl shadow-xl py-2 z-50 text-white">
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Top Rated</a>
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Near You</a>
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Verified Only</a>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-[#17382b] border border-white/10 rounded-xl shadow-xl py-2 z-50 text-white">
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Top Rated</a>
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Near You</a>
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Verified Only</a>
                 </div>
               )}
             </div>
 
             {/* Services Dropdown */}
             <div className="relative">
-              <button 
+              <button
                 onClick={() => { setServicesOpen(!servicesOpen); setFindWorkersOpen(false); }}
                 className="flex items-center gap-1.5 hover:text-white transition py-1"
               >
                 <span>Services</span>
-                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+                <ChevronDown className="w-4 h-4 opacity-70" />
               </button>
               {servicesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-[#1B3B36] border border-[#2A4D46] rounded-xl shadow-xl py-2 z-50 text-white">
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Plumbing</a>
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Electrician</a>
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Carpenter</a>
-                  <a href="#" className="block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">AC Repair</a>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-[#17382b] border border-white/10 rounded-xl shadow-xl py-2 z-50 text-white">
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Plumbing</a>
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Electrician</a>
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">Carpenter</a>
+                  <a href="#" className="block px-4 py-2 hover:bg-white/5 hover:text-[#d96b27] text-sm transition">AC Repair</a>
                 </div>
               )}
             </div>
@@ -96,18 +111,18 @@ const Navbar = ({
           </nav>
 
           {/* 3. Location & Auth Actions */}
-          <div className="hidden lg:flex items-center space-x-4 shrink-0">
+          <div className="hidden xl:flex items-center space-x-6 shrink-0">
             {/* Location Selector */}
-            <button className="flex items-center gap-1.5 text-xs text-[#D1DDD7] hover:text-white px-2 py-1 transition">
-              <MapPin className="w-3.5 h-3.5 text-[#D96B27]" />
+            <button className="flex items-center gap-1.5 text-[14px] font-medium text-white/90 hover:text-white transition">
+              <MapPin className="w-4 h-4 text-[#d96b27]" strokeWidth={2} />
               <span>Lahore, Pakistan</span>
-              <ChevronDown className="w-3 h-3 opacity-60 ml-0.5" />
+              <ChevronDown className="w-4 h-4 opacity-60 ml-0.5" />
             </button>
 
             {user ? (
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <button 
+                  <button
                     onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                     className="flex items-center gap-2 text-white bg-[#122c22] border border-[#2A4D46] px-3 py-1.5 rounded-full hover:bg-[#1B3B36] transition"
                   >
@@ -117,16 +132,26 @@ const Navbar = ({
                     <span className="text-xs font-medium">{user.name || 'User'}</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-70" />
                   </button>
-                  
+
                   {profileMenuOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-[#1B3B36] border border-[#2A4D46] rounded-xl shadow-xl py-2 z-50 text-white">
                       <div className="px-4 py-2 border-b border-[#2A4D46] mb-1">
                         <p className="text-sm font-semibold truncate">{user.name || 'User'}</p>
                         <p className="text-[10px] text-[#A3B8B0] truncate">{user.email || ''}</p>
                       </div>
+                      <button 
+                        onClick={() => {
+                          setActiveDashboardView(activeDashboardView === 'client' ? 'worker' : 'client');
+                          if (onNavigateToDashboard) onNavigateToDashboard();
+                          setProfileMenuOpen(false);
+                        }} 
+                        className="w-full text-left block px-4 py-2 hover:bg-[#122c22] text-[#d96b27] font-semibold text-xs"
+                      >
+                        Switch to {activeDashboardView === 'client' ? 'Worker' : 'Client'}
+                      </button>
                       <button onClick={onNavigateToDashboard} className="w-full text-left block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Dashboard</button>
                       <button onClick={openSettingsModal} className="w-full text-left block px-4 py-2 hover:bg-[#122c22] hover:text-[#D96B27] text-xs">Settings</button>
-                      <button 
+                      <button
                         onClick={() => {
                           handleLogout();
                           setProfileMenuOpen(false);
@@ -145,7 +170,7 @@ const Navbar = ({
                 <button onClick={openAuthModal} className="text-xs font-medium text-white px-4 py-2 rounded-lg border border-[#305345] hover:bg-[#1f4535] transition">
                   Log In
                 </button>
-    
+
                 {/* Sign Up CTA */}
                 <button onClick={() => openAuthModal && openAuthModal('client')} className="text-xs font-semibold text-white bg-[#D96B27] hover:bg-[#bf5817] px-5 py-2.5 rounded-lg shadow-sm transition">
                   Sign Up
@@ -169,7 +194,7 @@ const Navbar = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#122c22] border-t border-[#234537] px-6 pt-3 pb-6 space-y-3">
+        <div className="xl:hidden bg-[#17382b] border-t border-white/10 px-6 pt-3 pb-6 space-y-3">
           <a href="#" className="block py-2 text-sm font-semibold text-white">Home</a>
           <a href="#" className="block py-2 text-sm text-[#D1DDD7]">Find Workers</a>
           <a href="#" className="block py-2 text-sm text-[#D1DDD7]">Services</a>
@@ -188,7 +213,17 @@ const Navbar = ({
                   <p className="text-xs text-[#A3B8B0] truncate">{user.email || ''}</p>
                 </div>
               </div>
-              <button onClick={() => { onNavigateToDashboard(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-[#D1DDD7] hover:text-white">
+              <button 
+                onClick={() => { 
+                  setActiveDashboardView(activeDashboardView === 'client' ? 'worker' : 'client');
+                  if (onNavigateToDashboard) onNavigateToDashboard();
+                  setMobileMenuOpen(false); 
+                }} 
+                className="w-full py-2 text-left px-2 text-sm text-[#d96b27] font-semibold hover:text-white"
+              >
+                Switch to {activeDashboardView === 'client' ? 'Worker' : 'Client'}
+              </button>
+              <button onClick={() => { if (onNavigateToDashboard) onNavigateToDashboard(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-[#D1DDD7] hover:text-white">
                 Dashboard
               </button>
               <button onClick={() => { openSettingsModal(); setMobileMenuOpen(false); }} className="w-full py-2 text-left px-2 text-sm text-[#D1DDD7] hover:text-white">

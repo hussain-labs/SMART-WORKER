@@ -43,14 +43,6 @@ const SendOfferPage = ({ worker, client, onSendOffer, onBack }) => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300 relative">
-      {/* Top Navigation */}
-      <button 
-        onClick={onBack}
-        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium text-theme-primary bg-theme-card/70 hover:bg-theme-card border border-theme-border hover:border-theme-accent hover:text-theme-accent shadow-sm transition-all duration-200 cursor-pointer mb-2"
-      >
-        <ArrowLeft size={16} /> Back
-      </button>
-
       <div className="max-w-3xl mx-auto bg-theme-card rounded-2xl shadow-sm border border-theme-border overflow-hidden">
         
         {/* Header */}
